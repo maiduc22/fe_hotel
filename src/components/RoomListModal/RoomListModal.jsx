@@ -14,7 +14,7 @@ const Container = styled.div`
   box-sizing: border-box;
   position: absolute;
   flex-direction: column;
-  min-width: 450px;
+  width: 30vw;
   padding: 1em;
   top: 70px;
   right: 3em;
@@ -44,7 +44,8 @@ const Container = styled.div`
   }
   @media (max-width: 525px) {
     width: 90vw;
-    right: 1em;
+    left: auto;
+    right: auto;
   }
 `;
 const CartBtn = styled.button`
@@ -66,11 +67,7 @@ const Content = styled.div`
     padding-bottom: 10px;
   }
   .details {
-    display: flex;
-    align-items: center;
-    p {
-      margin-left: 10px;
-    }
+    text-align: right;
   }
   .name {
   }
@@ -118,11 +115,8 @@ function RoomListModal() {
             <Content key={index}>
               <img src={room.img ? room.img : DefaultIMG} alt="" />
               <div className="details">
-                <div>
-                  <p className="room"> {room.name}</p>
-                  <p className="price">{room.price}</p>
-                </div>
-                <p>x</p>
+                <p className="room"> {room.name}</p>
+                <p className="price">{room.price}</p>
               </div>
             </Content>
           ))}

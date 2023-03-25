@@ -27,10 +27,14 @@ const CustomerInfo = ({ _userInfo, setUserInfo }) => {
   };
 
   const validateFormInput = () => {
-    Object.values(_userInfo).every((value) => {
-      if (value === "") return "Please input all field.";
-    });
-    if (!isValidEmail(_userInfo.email)) return "Email is invalid.";
+    // Object.values(_userInfo).every((value) => {
+    //   if (value === "") return "Please input all field.";
+    // });
+    if (_userInfo.fullname == "") return "Your fullname is required";
+    if (_userInfo.tel == "") return "Your phone number is required";
+    if (_userInfo.idCard == "") return "Your Id card is required";
+    if (!isValidEmail(_userInfo.email) && _userInfo.email != "")
+      return "Email is invalid.";
     return "";
   };
 
@@ -122,19 +126,10 @@ const CustomerInfo = ({ _userInfo, setUserInfo }) => {
               <Text className="small"> {room.price}</Text>
             </Wrapper>
           ))}
-          <hr />
-          <Wrapper style={{ marginTop: "15px", color: "red" }}>
-            <Text style={{ fontWeight: "bolder" }} className="small">
-              Total Price
-            </Text>
-            <Text style={{ fontWeight: "bolder" }} className="small">
-              {getTotalPrice(roomList)}
-            </Text>
-          </Wrapper>
         </div>
       </Layout>
       <Layout className="buttons">
-        <FormButton>Go Back</FormButton>
+        <FormButton onClick={() => navigate(-1)}>Go Back</FormButton>
         <FormButton onClick={(e) => handleConfirmButton(e)}>Confirm</FormButton>
       </Layout>
     </>

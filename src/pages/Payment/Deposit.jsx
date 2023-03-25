@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const PaymentMethod = () => {
+const Deposit = () => {
   const navigate = useNavigate();
 
   const userInfo = useLocation().state;
@@ -49,6 +49,7 @@ const PaymentMethod = () => {
     try {
       const response = await axios.post(`${BASE_URL}/${bookRoomAPI}`, data);
       navigate(`${Paths.payment}/3`);
+      localStorage.removeItem("selectedRooms");
     } catch (err) {
       toast.error(`${err.message}`, ToastConfig);
     }
@@ -113,10 +114,10 @@ const PaymentMethod = () => {
               }}
             >
               <Text style={{ fontWeight: "bolder" }} className="small">
-                Total Price
+                You have to deposit
               </Text>
               <Text style={{ fontWeight: "bolder" }} className="small">
-                {getTotalPrice(roomList)}
+                {getTotalPrice(roomList) * 0.5}
               </Text>
             </Wrapper>
           </div>
@@ -137,6 +138,46 @@ const PaymentMethod = () => {
                 onChange={(e) => setBankNumber(e.target.value)}
               />
             </InputContainer>
+
+            <div>
+              <Text
+                style={{
+                  marginTop: "30px",
+                  color: "red",
+                  fontWeight: "bolder",
+                }}
+                className="small"
+              >
+                Please transfer the deposit to the account number{" "}
+              </Text>
+              <Wrapper>
+                <Text
+                  style={{ fontWeight: "bolder", marginRight: "10px" }}
+                  className="small"
+                >
+                  Account Owner:
+                </Text>
+                <Text className="small">Nguyen Van A</Text>
+              </Wrapper>
+              <Wrapper>
+                <Text
+                  style={{ fontWeight: "bolder", marginRight: "10px" }}
+                  className="small"
+                >
+                  Bank Name:
+                </Text>
+                <Text className="small">BIDV</Text>
+              </Wrapper>
+              <Wrapper>
+                <Text
+                  style={{ fontWeight: "bolder", marginRight: "10px" }}
+                  className="small"
+                >
+                  Bank Number:
+                </Text>
+                <Text className="small">123456789</Text>
+              </Wrapper>
+            </div>
           </div>
         </>
       </Layout>
@@ -150,4 +191,4 @@ const PaymentMethod = () => {
   );
 };
 
-export default PaymentMethod;
+export default Deposit;

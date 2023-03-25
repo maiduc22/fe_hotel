@@ -3,10 +3,10 @@ import { PageContainer } from "../../components/GlobalStyles/PageStyles";
 import ProgressBar from "./ProgressBar";
 import CustomerInfo from "./CustomerInfo";
 import { useParams, useLocation, Navigate } from "react-router-dom";
-import PaymentScreen from "./PaymentMethod";
 import BookingConfirmed from "./BookingConfirmed";
 
 import { Context } from "../../contexts/contexts";
+import Deposit from "./Deposit";
 
 const PaymentPage = () => {
   const { setPage } = useContext(Context);
@@ -30,7 +30,7 @@ const PaymentPage = () => {
       {step == "1" && (
         <CustomerInfo _userInfo={_userInfo} setUserInfo={setUserInfo} />
       )}
-      {step == "2" && <PaymentScreen _userInfo={_userInfo} />}
+      {step == "2" && <Deposit _userInfo={_userInfo} />}
       {step == "3" && <BookingConfirmed _userInfo={_userInfo} />}
     </PageContainer>
   );
