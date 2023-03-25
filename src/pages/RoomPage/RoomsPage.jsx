@@ -54,7 +54,7 @@ const RoomsPage = () => {
   }, [state]);
 
   const roomList = JSON.parse(localStorage.getItem("selectedRooms"));
-  const [_selectedRooms, setSelectedRooms] = useState(roomList);
+  const [_selectedRooms, setSelectedRooms] = useState(roomList ? roomList : []);
 
   const handleAddRoomToList = (room) => {
     const checkDuplicateRoom = (obj) => obj.id === room.id;

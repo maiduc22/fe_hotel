@@ -99,7 +99,9 @@ function RoomListModal() {
     };
   }, [toggleShow]);
 
-  const roomList = JSON.parse(localStorage.getItem("selectedRooms"));
+  const roomList = JSON.parse(localStorage.getItem("selectedRooms"))
+    ? JSON.parse(localStorage.getItem("selectedRooms"))
+    : [];
 
   const handleClickGoToPayment = () => {
     toggleShow();
