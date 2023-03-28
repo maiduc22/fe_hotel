@@ -8,6 +8,9 @@ import DefaultIMG from "../../assets/default.png";
 import { FormButton } from "../GlobalStyles/FormStyles";
 import { useNavigate } from "react-router-dom";
 import { Paths } from "../../constants";
+import { useDispatch, useSelector } from "react-redux";
+import { AiFillDelete } from "react-icons/ai";
+import { REMOVE_FROM_LIST } from "../../redux/actions/roomlist/action_type";
 
 const Container = styled.div`
   display: ${(props) => (props.show ? "flex" : "none")};
@@ -67,7 +70,12 @@ const Content = styled.div`
     padding-bottom: 10px;
   }
   .details {
+    display: flex;
+    align-items: center;
+  }
+  .room-detail {
     text-align: right;
+    margin-right: 15px;
   }
   .name {
   }
@@ -96,14 +104,21 @@ function RoomListModal() {
     };
   }, [toggleShow]);
 
-  const roomList = JSON.parse(localStorage.getItem("selectedRooms"))
-    ? JSON.parse(localStorage.getItem("selectedRooms"))
-    : [];
-
   const handleClickGoToPayment = () => {
     toggleShow();
     navigate(`${Paths.payment}/1`);
   };
+
+  const roomList = useSelector((state) => state.roomlist_reducer).roomlist;
+  const dispatch = useDispatch();
+
+  const handleRemoveFromList = (roomid) => {
+    dispatch({
+      type: REMOVE_FROM_LIST,
+      id: roomid,
+    });
+  };
+
   return (
     <Container show={show} ref={ref}>
       <h4>Your List</h4>
@@ -115,8 +130,14 @@ function RoomListModal() {
             <Content key={index}>
               <img src={room.img ? room.img : DefaultIMG} alt="" />
               <div className="details">
-                <p className="room"> {room.name}</p>
-                <p className="price">{room.price}</p>
+                <div className="room-detail">
+                  <p className="room"> {room.name}</p>
+                  <p className="price">{room.price}</p>
+                </div>
+                <AiFillDelete
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleRemoveFromList(room.id)}
+                />
               </div>
             </Content>
           ))}

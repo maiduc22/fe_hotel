@@ -11,6 +11,7 @@ import {
 import { toast } from "react-toastify";
 import { Paths, ToastConfig } from "../../constants";
 import { getTotalPrice } from "../../utils/helperFunction";
+import { useSelector } from "react-redux";
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,9 +28,6 @@ const CustomerInfo = ({ _userInfo, setUserInfo }) => {
   };
 
   const validateFormInput = () => {
-    // Object.values(_userInfo).every((value) => {
-    //   if (value === "") return "Please input all field.";
-    // });
     if (_userInfo.fullname == "") return "Your fullname is required";
     if (_userInfo.tel == "") return "Your phone number is required";
     if (_userInfo.idCard == "") return "Your Id card is required";
@@ -48,7 +46,7 @@ const CustomerInfo = ({ _userInfo, setUserInfo }) => {
     }
   };
 
-  const roomList = JSON.parse(localStorage.getItem("selectedRooms"));
+  const roomList = useSelector((state) => state).roomlist_reducer.roomlist;
   return (
     <>
       <Layout>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PageContainer, Text } from "../../components/GlobalStyles/PageStyles";
-
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import LeftSidebar from "../../components/Sidebars/LeftSidebar";
 import { useParams, useLocation, useNavigate } from "react-router";
@@ -27,6 +27,9 @@ const ResultContainer = styled.div`
 `;
 
 const RoomsPage = () => {
+  const test = useSelector((state) => state);
+  console.log(test);
+
   const { setPage } = useContext(Context);
   const params = useParams();
   const location = useLocation();

@@ -5,6 +5,10 @@ import { FormButton, Text, Image } from "../GlobalStyles/PageStyles";
 import "./roomcard.css";
 import { useNavigate } from "react-router-dom";
 import { ModalImage, ModalImageContent } from "../Modal/ViewImageModal";
+import { useDispatch, useSelector } from "react-redux";
+import { ADD_TO_LIST } from "../../redux/actions/roomlist/action_type";
+import { toast } from "react-toastify";
+import { ToastConfig } from "../../constants";
 
 const CardContainer = styled.div`
   padding: 16px;
@@ -42,34 +46,26 @@ const RoomDetails = styled.div`
 `;
 
 const RoomCard = ({ handleAddRoomToList, room, handleRemoveRoomFromList }) => {
-  // let roomList = JSON.parse(localStorage.getItem("selectedRooms"))
-  //   ? JSON.parse(localStorage.getItem("selectedRooms"))
-  //   : [];
-
-  // const [_isModalOpen, setIsModalOpen] = useState(false);
-  // const showModal = () => setIsModalOpen((prev) => !prev);
+  const dispatch = useDispatch();
+  const roomlist = useSelector((state) => state.roomlist_reducer).roomlist;
 
   const isAddToList = (roomId) => {
-    const roomList = JSON.parse(localStorage.getItem("selectedRooms"));
-    console.log(roomList);
     const checkDuplicateRoom = (obj) => obj.id === roomId;
-    return roomList.some(checkDuplicateRoom) ? true : false;
+    return roomlist.some(checkDuplicateRoom) ? true : false;
   };
 
   const [_textBtn, setTextBtn] = useState(
     !isAddToList(room.id) ? "Add To Your List" : "Remove From Your List"
   );
 
-  const handleClickButton = () => {
-    const roomList = JSON.parse(localStorage.getItem("selectedRooms"));
-    console.log(roomList);
-    console.log(isAddToList(room.id));
-    if (isAddToList(room.id)) {
-      setTextBtn("Add To Your List");
-      handleRemoveRoomFromList(room.id);
+  const handleAddToList = () => {
+    if (!isAddToList(room.id)) {
+      dispatch({
+        type: ADD_TO_LIST,
+        data: room,
+      });
     } else {
-      setTextBtn("Remove From Your List");
-      handleAddRoomToList(room);
+      toast.warning("Your list has this room already", ToastConfig);
     }
   };
 
@@ -119,9 +115,9 @@ const RoomCard = ({ handleAddRoomToList, room, handleRemoveRoomFromList }) => {
             width: "100%",
             marginTop: "16px",
           }}
-          onClick={() => handleClickButton()}
+          onClick={() => handleAddToList()}
         >
-          {_textBtn}
+          Add to your list
         </FormButton>
       </RoomDetails>
     </CardContainer>

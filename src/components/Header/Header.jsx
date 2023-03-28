@@ -8,12 +8,8 @@ import {
   RoomListModalContext,
   ToggleRoomListModalContext,
 } from "../RoomListModal/useRoomListToggle";
-
+import RoomListModal from "../RoomListModal/RoomListModal";
 import { Context } from "../../contexts/contexts";
-
-const RoomListModal = React.lazy(() =>
-  import("../RoomListModal/RoomListModal")
-);
 
 const FixedHeader = styled.div`
   padding: 12px 16px;

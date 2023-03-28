@@ -20,8 +20,6 @@ import PaymentPage from "./pages/Payment/PaymentPage";
 function App() {
   const [_page, setPage] = useState("Home");
 
- 
-
   return (
     <Context.Provider value={{ setPage }}>
       <RoomListModalToggle>

@@ -17,6 +17,8 @@ import constants, {
   ToastConfig,
 } from "../../constants";
 import axios from "../../utils/axios";
+import { useDispatch } from "react-redux";
+import { SET_TIME } from "../../redux/actions/time/action_type";
 
 const Extras = styled.div`
   margin-top: 20px;
@@ -40,6 +42,7 @@ const SearchBox = (props) => {
   const data = props.data;
   const styles = props.styles;
 
+  const dispatch = useDispatch();
   const [_checkIn, setCheckIn] = useState(
     data ? new Date(data.checkIn) : new Date()
   );
@@ -59,6 +62,14 @@ const SearchBox = (props) => {
       checkIn: _checkIn.toISOString(),
       checkOut: _checkOut.toISOString(),
     };
+
+    dispatch({
+      type: SET_TIME,
+      data: {
+        checkIn: _checkIn.toISOString(),
+        checkOut: _checkOut.toISOString(),
+      },
+    });
     navigate(Paths.room, { state: searchData });
   };
 

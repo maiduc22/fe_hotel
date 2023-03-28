@@ -18,6 +18,7 @@ export default constants;
 export const BASE_URL = "http://localhost:8080/api";
 export const searchRoomAPI = "v2/search";
 export const bookRoomAPI = "v2/order";
+export const getRoomAPI = "v1/"
 
 export const VietnamBank = [
   {

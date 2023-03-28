@@ -1,25 +1,16 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-
-const user = JSON.parse(localStorage.getItem('user'))
-
-const client = new ApolloClient({
-  uri: "https://hotelbooking-be.onrender.com/graphql",
-  cache: new InMemoryCache(),
-  headers: {
-    authorization: user ? `Bearer ${user.accessToken}` : ' ',
-  }
-});
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import store from "./redux/store/store";
+import { Provider } from "react-redux";
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
+  <Provider store={store}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </ApolloProvider>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

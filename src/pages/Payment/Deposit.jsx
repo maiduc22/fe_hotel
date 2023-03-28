@@ -17,6 +17,7 @@ import { InputContainer } from "../../components/GlobalStyles/FormStyles";
 import styled from "styled-components";
 import { getTotalPrice } from "../../utils/helperFunction";
 import axios from "../../utils/axios";
+import { useSelector } from "react-redux";
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,9 +27,10 @@ const Wrapper = styled.div`
 
 const Deposit = () => {
   const navigate = useNavigate();
+  const time = useSelector((state) => state).time_reducer;
 
   const userInfo = useLocation().state;
-  const roomList = JSON.parse(localStorage.getItem("selectedRooms"));
+  const roomList = useSelector((state) => state).roomlist_reducer.roomlist;
 
   const [_bankName, setBankName] = useState("");
   const [_bankNumber, setBankNumber] = useState("");
@@ -65,9 +67,10 @@ const Deposit = () => {
       bankName: _bankName,
       bankNumber: _bankNumber,
       idsRoom: roomList.map((room) => room.id),
-      checkIn: "2023-03-24T20:58:31.426Z",
-      checkOut: "2023-03-24T20:58:31.426Z",
+      checkIn: time.checkIn,
+      checkOut: time.checkOut,
     };
+    console.log(data);
     bookRoom(data);
   };
 
