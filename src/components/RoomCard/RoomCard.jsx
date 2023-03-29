@@ -45,7 +45,7 @@ const RoomDetails = styled.div`
   }
 `;
 
-const RoomCard = ({ handleAddRoomToList, room, handleRemoveRoomFromList }) => {
+const RoomCard = ({ room }) => {
   const dispatch = useDispatch();
   const roomlist = useSelector((state) => state.roomlist_reducer).roomlist;
 
@@ -54,16 +54,13 @@ const RoomCard = ({ handleAddRoomToList, room, handleRemoveRoomFromList }) => {
     return roomlist.some(checkDuplicateRoom) ? true : false;
   };
 
-  const [_textBtn, setTextBtn] = useState(
-    !isAddToList(room.id) ? "Add To Your List" : "Remove From Your List"
-  );
-
   const handleAddToList = () => {
     if (!isAddToList(room.id)) {
       dispatch({
         type: ADD_TO_LIST,
         data: room,
       });
+      toast.success("Added to your list", ToastConfig);
     } else {
       toast.warning("Your list has this room already", ToastConfig);
     }
@@ -94,21 +91,27 @@ const RoomCard = ({ handleAddRoomToList, room, handleRemoveRoomFromList }) => {
     <CardContainer>
       <Image
         style={{
-          backgroundImage: `url(${
-            room.image == null ? room.image : DefaultIMG
-          })`,
+          // backgroundImage: `url(${
+          //   room.image !== "" ? room.image : DefaultIMG
+          // })`,
           minWidth: "260px",
           height: "260px",
         }}
         className="img-container"
-      ></Image>
+      >
+        <img
+          src={room.image !== "" ? room.image : DefaultIMG}
+          style={{ height: "260px", width: "260px" }}
+          loading="lazy"
+        />
+      </Image>
       <RoomDetails className="details">
         <Text className="clip">{room.name}</Text>
         <Text className="small">{room.type}</Text>
         <Text className="small clamp">{room.description}</Text>
         <Text className="small clamp">{room.price}</Text>
         <Text className="small" style={renderStatusStyle(room.isBooked)}>
-          {room.isBooked ? "Booked" : "Avaiable"}
+          {false ? "Booked" : "Avaiable"}
         </Text>
         <FormButton
           style={{

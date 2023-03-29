@@ -1,18 +1,28 @@
-.action-slider{
-    position: absolute;
-    right: 0;
-    height: 100%;
-    bottom: 0;
-    top: 0;
-    background:  #ff6e29;
-    transition: 0.5s;
-    width: 0px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.5s;
-    color: #fff;
-    font-size: 26px;
-    white-space: nowrap;
+.action-slider {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  bottom: 0;
+  top: 0;
+  background: #ff6e29;
+  transition: 0.5s;
+  width: 0px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  color: #fff;
+  font-size: 26px;
+  white-space: nowrap;
+}
+
+.img-container {
+  margin-right: 25px;
+}
+
+@media screen and (max-width: 600px) {
+  .img-container {
+    margin-right: 0px;
+  }
 }

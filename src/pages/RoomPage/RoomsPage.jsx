@@ -56,31 +56,6 @@ const RoomsPage = () => {
     setPage("Search Room");
   }, [state]);
 
-  const roomList = JSON.parse(localStorage.getItem("selectedRooms"));
-  const [_selectedRooms, setSelectedRooms] = useState(roomList ? roomList : []);
-
-  const handleAddRoomToList = (room) => {
-    const checkDuplicateRoom = (obj) => obj.id === room.id;
-    if (!_selectedRooms.some(checkDuplicateRoom)) {
-      toast.success("Added to your list", ToastConfig);
-      setSelectedRooms((prevState) => [...prevState, room]);
-    }
-  };
-
-  const handleRemoveRoomFromList = (roomId) => {
-    setSelectedRooms((currentState) =>
-      currentState.filter((room) => room.id != roomId)
-    );
-    toast.success("Removed from your list", ToastConfig);
-  };
-
-  useEffect(() => {
-    if (_selectedRooms.length > 0) {
-      localStorage.setItem("selectedRooms", JSON.stringify(_selectedRooms));
-      console.log(_selectedRooms);
-    }
-  }, [_selectedRooms]);
-
   return (
     <>
       {_loading ? (
@@ -91,12 +66,7 @@ const RoomsPage = () => {
 
           <ResultContainer>
             {_rooms.map((room, index) => (
-              <RoomCard
-                room={room}
-                key={index}
-                handleAddRoomToList={handleAddRoomToList}
-                handleRemoveRoomFromList={handleRemoveRoomFromList}
-              />
+              <RoomCard room={room} key={index} />
             ))}
             {_rooms.length === 0 ? (
               <Text style={{ color: "grey", textAlign: "center" }}>
