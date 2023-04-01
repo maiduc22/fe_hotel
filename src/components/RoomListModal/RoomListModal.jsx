@@ -128,7 +128,12 @@ function RoomListModal() {
         <>
           {roomList.map((room, index) => (
             <Content key={index}>
-              <img src={room.img !== "" ? room.img : DefaultIMG} alt="" />
+              <img
+                height={"30px"}
+                width={"30px"}
+                src={room.img !== "string" ? room.img : DefaultIMG}
+                alt=""
+              />
               <div className="details">
                 <div className="room-detail">
                   <p className="room"> {room.name}</p>

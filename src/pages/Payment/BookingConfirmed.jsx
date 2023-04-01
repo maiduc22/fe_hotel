@@ -8,9 +8,18 @@ import {
   Input,
 } from "../../components/GlobalStyles/FormStyles";
 import { Paths } from "../../constants";
+import { useDispatch } from "react-redux";
+import { CLEAR_LIST } from "../../redux/actions/roomlist/action_type";
 const BookingConfirmed = ({ _userInfo }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const handleGoToHomePage = () => {
+    dispatch({
+      type: CLEAR_LIST,
+    });
+    navigate(`${Paths.home}`);
+  };
   return (
     <>
       <Confirmation>
@@ -25,7 +34,7 @@ const BookingConfirmed = ({ _userInfo }) => {
       <Layout className="buttons">
         <FormButton
           style={{ marginLeft: "auto" }}
-          onClick={() => navigate(`${Paths.home}`)}
+          onClick={() => handleGoToHomePage()}
         >
           Back to Home Page
         </FormButton>

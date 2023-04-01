@@ -127,7 +127,7 @@ const CustomerInfo = ({ _userInfo, setUserInfo }) => {
         </div>
       </Layout>
       <Layout className="buttons">
-        <FormButton onClick={() => navigate(-1)}>Go Back</FormButton>
+        <FormButton onClick={() => navigate(Paths.room)}>Go Back</FormButton>
         <FormButton onClick={(e) => handleConfirmButton(e)}>Confirm</FormButton>
       </Layout>
     </>

@@ -100,7 +100,7 @@ const RoomCard = ({ room }) => {
         className="img-container"
       >
         <img
-          src={room.image !== "" ? room.image : DefaultIMG}
+          src={room.image !== "" ? room.image : "../../assets/default.png"}
           style={{ height: "260px", width: "260px" }}
           loading="lazy"
         />

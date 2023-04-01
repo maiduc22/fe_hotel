@@ -1,4 +1,8 @@
-import { ADD_TO_LIST, REMOVE_FROM_LIST } from "../actions/roomlist/action_type";
+import {
+  ADD_TO_LIST,
+  CLEAR_LIST,
+  REMOVE_FROM_LIST,
+} from "../actions/roomlist/action_type";
 
 export default (state = { roomlist: [] }, action) => {
   switch (action.type) {
@@ -26,8 +30,12 @@ export default (state = { roomlist: [] }, action) => {
         ...state,
         roomlist: filterRoomlist,
       };
+    case CLEAR_LIST:
+      return {
+        ...state,
+        roomlist: [],
+      };
     default:
       return state;
   }
 };
-

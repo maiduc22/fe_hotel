@@ -17,7 +17,8 @@ import { InputContainer } from "../../components/GlobalStyles/FormStyles";
 import styled from "styled-components";
 import { getTotalPrice } from "../../utils/helperFunction";
 import axios from "../../utils/axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { CLEAR_LIST } from "../../redux/actions/roomlist/action_type";
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,6 +35,8 @@ const Deposit = () => {
 
   const [_bankName, setBankName] = useState("");
   const [_bankNumber, setBankNumber] = useState("");
+
+  const dispatch = useDispatch();
 
   const options = [];
   VietnamBank.map((bank) => {

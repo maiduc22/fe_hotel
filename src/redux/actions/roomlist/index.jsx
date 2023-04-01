@@ -1,4 +1,4 @@
-import { ADD_TO_LIST, REMOVE_FROM_LIST } from "./action_type";
+import { ADD_TO_LIST, CLEAR_LIST, REMOVE_FROM_LIST } from "./action_type";
 
 export default {
   addToList: (data) => ({
@@ -12,5 +12,8 @@ export default {
     params: {
       id,
     },
+  }),
+  clearList: () => ({
+    type: CLEAR_LIST,
   }),
 };
