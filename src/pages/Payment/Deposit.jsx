@@ -75,6 +75,9 @@ const Deposit = () => {
     };
     console.log(data);
     bookRoom(data);
+    dispatch({
+      type: CLEAR_LIST,
+    });
   };
 
   return (
