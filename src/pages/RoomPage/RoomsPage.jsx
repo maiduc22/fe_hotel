@@ -28,7 +28,6 @@ const ResultContainer = styled.div`
 
 const RoomsPage = () => {
   const test = useSelector((state) => state);
-  console.log(test);
 
   const { setPage } = useContext(Context);
   const params = useParams();

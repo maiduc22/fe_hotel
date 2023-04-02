@@ -15,9 +15,9 @@ const BookingConfirmed = ({ _userInfo }) => {
   const dispatch = useDispatch();
 
   const handleGoToHomePage = () => {
-    dispatch({
-      type: CLEAR_LIST,
-    });
+    // dispatch({
+    //   type: CLEAR_LIST,
+    // });
     navigate(`${Paths.home}`);
   };
   return (

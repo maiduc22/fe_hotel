@@ -63,7 +63,7 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 
   & img {
     width: 2.5em;
@@ -129,15 +129,13 @@ function RoomListModal() {
           {roomList.map((room, index) => (
             <Content key={index}>
               <img
-                height={"30px"}
-                width={"30px"}
-                src={room.img !== "string" ? room.img : DefaultIMG}
+                src={room.image !== "" ? room.image : DefaultIMG}
                 alt=""
+                style={{ minWidth: "40px", height: "40px", padding: 0 }}
               />
               <div className="details">
                 <div className="room-detail">
-                  <p className="room"> {room.name}</p>
-                  <p className="price">{room.price}</p>
+                  <p className="room">Room {room.name}</p>
                 </div>
                 <AiFillDelete
                   style={{ cursor: "pointer" }}

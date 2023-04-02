@@ -100,7 +100,8 @@ const RoomCard = ({ room }) => {
         className="img-container"
       >
         <img
-          src={room.image !== "" ? room.image : "../../assets/default.png"}
+          // src={room.image !== "" ? room.image : "../../assets/default.png"}
+          src={room.image !== "" ? room.image : DefaultIMG}
           style={{ height: "260px", width: "260px" }}
           loading="lazy"
         />
@@ -110,18 +111,20 @@ const RoomCard = ({ room }) => {
         <Text className="small">{room.type}</Text>
         <Text className="small clamp">{room.description}</Text>
         <Text className="small clamp">{room.price}</Text>
-        <Text className="small" style={renderStatusStyle(room.isBooked)}>
-          {false ? "Booked" : "Avaiable"}
+        <Text className="small" style={renderStatusStyle(isAddToList(room.id))}>
+          {isAddToList(room.id) ? "Added to your list" : "Avaiable"}
         </Text>
-        <FormButton
-          style={{
-            width: "100%",
-            marginTop: "16px",
-          }}
-          onClick={() => handleAddToList()}
-        >
-          Add to your list
-        </FormButton>
+        {!isAddToList(room.id) ? (
+          <FormButton
+            style={{
+              width: "100%",
+              marginTop: "16px",
+            }}
+            onClick={() => handleAddToList()}
+          >
+            Add to your list
+          </FormButton>
+        ) : null}
       </RoomDetails>
     </CardContainer>
   );
