@@ -60,6 +60,10 @@ const Deposit = () => {
     }
   };
   const handleConfirmButton = () => {
+    if (!_bankName || !_bankNumber) {
+      toast.warning("You need to select bank and bank number", ToastConfig);
+      return;
+    }
     const data = {
       idCard: userInfo.idCard,
       address: userInfo.address,
@@ -126,7 +130,7 @@ const Deposit = () => {
                 You have to deposit
               </Text>
               <Text style={{ fontWeight: "bolder" }} className="small">
-                {getTotalPrice(roomList) * 0.5}
+                {Math.ceil(getTotalPrice(roomList) * 0.5)}
               </Text>
             </Wrapper>
           </div>
@@ -148,7 +152,7 @@ const Deposit = () => {
               />
             </InputContainer>
 
-            <div>
+            <div style={{ color: "red" }}>
               <Text
                 style={{
                   marginTop: "30px",
