@@ -6,13 +6,7 @@ import { toast } from "react-toastify";
 import Loader from "../../components/Loaders/Loader";
 import { Context } from "../../contexts/contexts";
 import { Input, Select } from "antd";
-import {
-  BASE_URL,
-  bookRoomAPI,
-  Paths,
-  ToastConfig,
-  VietnamBank,
-} from "../../constants";
+import { BASE_URL, bookRoomAPI, Paths, ToastConfig, VietnamBank } from "../../constants";
 import { InputContainer } from "../../components/GlobalStyles/FormStyles";
 import styled from "styled-components";
 import { getTotalPrice } from "../../utils/helperFunction";
@@ -28,10 +22,20 @@ const Wrapper = styled.div`
 
 const Deposit = () => {
   const navigate = useNavigate();
+
   const time = useSelector((state) => state).time_reducer;
+  const checkInTime = new Date(time.checkIn);
+  const checkOutTime = new Date(time.checkOut);
+  const hours = (checkOutTime - checkInTime) / (1000 * 60 * 60);
 
   const userInfo = useLocation().state;
   const roomList = useSelector((state) => state).roomlist_reducer.roomlist;
+  const rooms = roomList.map((room) => {
+    return {
+      id: room.id,
+      price: room.price * hours,
+    };
+  });
 
   const [_bankName, setBankName] = useState("");
   const [_bankNumber, setBankNumber] = useState("");
@@ -51,6 +55,7 @@ const Deposit = () => {
   };
 
   const bookRoom = async (data) => {
+    // console.log(data);
     try {
       const response = await axios.post(`${BASE_URL}/${bookRoomAPI}`, data);
       navigate(`${Paths.payment}/3`);
@@ -59,6 +64,7 @@ const Deposit = () => {
       toast.error(`${err.message}`, ToastConfig);
     }
   };
+
   const handleConfirmButton = () => {
     if (!_bankName || !_bankNumber) {
       toast.warning("You need to select bank and bank number", ToastConfig);
@@ -73,7 +79,7 @@ const Deposit = () => {
       fullName: userInfo.fullname,
       bankName: _bankName,
       bankNumber: _bankNumber,
-      idsRoom: roomList.map((room) => room.id),
+      rooms,
       checkIn: time.checkIn,
       checkOut: time.checkOut,
     };
@@ -93,10 +99,7 @@ const Deposit = () => {
             <Wrapper></Wrapper>
             {Object.keys(userInfo).map((key, index) => (
               <Wrapper key={index}>
-                <Text
-                  className="small"
-                  style={{ fontWeight: "bolder", marginRight: "5px" }}
-                >
+                <Text className="small" style={{ fontWeight: "bolder", marginRight: "5px" }}>
                   {" "}
                   {key.toUpperCase()}:
                 </Text>
@@ -138,18 +141,11 @@ const Deposit = () => {
             <Text>Payment Info</Text>
             <InputContainer>
               <label>Bank</label>
-              <Select
-                style={styleSelect}
-                options={options}
-                onChange={(value) => setBankName(value)}
-              />
+              <Select style={styleSelect} options={options} onChange={(value) => setBankName(value)} />
             </InputContainer>
             <InputContainer>
               <label>Card number</label>
-              <Input
-                value={_bankNumber}
-                onChange={(e) => setBankNumber(e.target.value)}
-              />
+              <Input value={_bankNumber} onChange={(e) => setBankNumber(e.target.value)} />
             </InputContainer>
 
             <div style={{ color: "red" }}>
@@ -164,28 +160,19 @@ const Deposit = () => {
                 Please transfer the deposit to the account number{" "}
               </Text>
               <Wrapper>
-                <Text
-                  style={{ fontWeight: "bolder", marginRight: "10px" }}
-                  className="small"
-                >
+                <Text style={{ fontWeight: "bolder", marginRight: "10px" }} className="small">
                   Account Owner:
                 </Text>
                 <Text className="small">Nguyen Van A</Text>
               </Wrapper>
               <Wrapper>
-                <Text
-                  style={{ fontWeight: "bolder", marginRight: "10px" }}
-                  className="small"
-                >
+                <Text style={{ fontWeight: "bolder", marginRight: "10px" }} className="small">
                   Bank Name:
                 </Text>
                 <Text className="small">BIDV</Text>
               </Wrapper>
               <Wrapper>
-                <Text
-                  style={{ fontWeight: "bolder", marginRight: "10px" }}
-                  className="small"
-                >
+                <Text style={{ fontWeight: "bolder", marginRight: "10px" }} className="small">
                   Bank Number:
                 </Text>
                 <Text className="small">123456789</Text>
@@ -195,9 +182,7 @@ const Deposit = () => {
         </>
       </Layout>
       <Layout className="buttons">
-        <FormButton onClick={() => navigate(`${Paths.payment}/1`)}>
-          Go Back
-        </FormButton>
+        <FormButton onClick={() => navigate(`${Paths.payment}/1`)}>Go Back</FormButton>
         <FormButton onClick={() => handleConfirmButton()}>Next</FormButton>
       </Layout>
     </>
