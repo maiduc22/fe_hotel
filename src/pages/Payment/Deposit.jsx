@@ -26,7 +26,7 @@ const Deposit = () => {
   const time = useSelector((state) => state).time_reducer;
   const checkInTime = new Date(time.checkIn);
   const checkOutTime = new Date(time.checkOut);
-  const hours = (checkOutTime - checkInTime) / (1000 * 60 * 60);
+  const hours = Math.ceil((checkOutTime - checkInTime) / (1000 * 60 * 60));
 
   const userInfo = useLocation().state;
   const roomList = useSelector((state) => state).roomlist_reducer.roomlist;
@@ -83,7 +83,7 @@ const Deposit = () => {
       checkIn: time.checkIn,
       checkOut: time.checkOut,
     };
-    console.log(data);
+
     bookRoom(data);
     dispatch({
       type: CLEAR_LIST,
@@ -112,13 +112,13 @@ const Deposit = () => {
                 Room Name
               </Text>
               <Text style={{ fontWeight: "bolder" }} className="small">
-                Price($)
+                Price ($)
               </Text>
             </Wrapper>
             {roomList.map((room, index) => (
               <Wrapper key={index} style={{ justifyContent: "space-between" }}>
                 <Text className="small">Room {room.name}</Text>
-                <Text className="small"> {room.price}</Text>
+                <Text className="small"> {room.price * hours}</Text>
               </Wrapper>
             ))}
             <hr />
@@ -133,7 +133,7 @@ const Deposit = () => {
                 You have to deposit
               </Text>
               <Text style={{ fontWeight: "bolder" }} className="small">
-                {Math.ceil(getTotalPrice(roomList) * 0.5)}
+                {Math.ceil(getTotalPrice(roomList, hours) * 0.5)}
               </Text>
             </Wrapper>
           </div>
