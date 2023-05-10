@@ -42,7 +42,11 @@ const CustomerInfo = ({ _userInfo, setUserInfo }) => {
   };
 
   const roomList = useSelector((state) => state).roomlist_reducer.roomlist;
-
+  const time = useSelector((state) => state).time_reducer;
+  const checkInTime = new Date(time.checkIn);
+  const checkOutTime = new Date(time.checkOut);
+  const hours = Math.ceil((checkOutTime - checkInTime) / (1000 * 60 * 60));
+  console.log(hours);
   return (
     <>
       <Layout>
@@ -90,7 +94,7 @@ const CustomerInfo = ({ _userInfo, setUserInfo }) => {
           {roomList.map((room, index) => (
             <Wrapper key={index}>
               <Text className="small">Room {room.name}</Text>
-              <Text className="small"> {room.price}</Text>
+              <Text className="small"> {room.price * hours}</Text>
             </Wrapper>
           ))}
         </div>

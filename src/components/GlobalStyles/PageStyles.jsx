@@ -94,7 +94,7 @@ export const Image = styled.div`
 export const SearchBoxContainer = styled.div`
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 5px 6px 20px 3px #66666682;
+  box-shadow: 2px 2px 5px 2px #66666682;
   z-index: 9999;
 
   .small-search-button {
